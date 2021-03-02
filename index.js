@@ -56,3 +56,34 @@ function askQuestion() {
         }
     })
 }
+
+function addEngineer() {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "engineerName",
+            message: "What is the engineer's name?"
+        },
+        {
+            type: "input",
+            name: "managerId",
+            message: "What is the engineer's Id?"
+        },
+        {
+            type: "input",
+            name: "managerEmail",
+            message: "What is the engineer's Email?"
+        },
+        {
+            type: "input",
+            name: "enginnerOfficeNum",
+            message: "What is the engineer's office number?"
+        },
+    ]).then(data => {
+        const engineer = Engineer(data.engineerName, data.engineerId, data.engineerEmail, data.engineerOfficeNum)
+        team.push(engineer)
+        console.log(team)
+        // call the ask question function
+        askQuestion()
+    })
+}
