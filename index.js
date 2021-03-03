@@ -87,3 +87,34 @@ function addEngineer() {
         askQuestion()
     })
 }
+
+function addIntern() {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "internName",
+            message: "What is the Interns name?"
+        },
+        {
+            type: "input",
+            name: "managerId",
+            message: "What is the Interns Id?"
+        },
+        {
+            type: "input",
+            name: "managerEmail",
+            message: "What is the Interns Email?"
+        },
+        {
+            type: "input",
+            name: "enginnerOfficeNum",
+            message: "What is the Interns office number?"
+        },
+    ]).then(data => {
+        const intern = Intern(data.internName, data.internId, data.internEmail, data.internOfficeNum)
+        team.push(intern)
+        console.log(team)
+        // call the ask question function
+        askQuestion()
+    })
+}
