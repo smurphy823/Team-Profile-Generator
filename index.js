@@ -4,6 +4,7 @@ const Intern = require("./lib/Intern");
 const fs = require("fs");
 const inquirer = require("inquirer");
 const path = require("path");
+const Employee = require("./lib/Employee");
 const team = []
 
 
@@ -45,13 +46,17 @@ function askQuestion() {
             type: "list",
             name: "choice",
             message: "Which type of employee would you like to add?",
-            choices: ["Engineer", "Intern", "N/A"]
+            choices: ["Engineer", "Intern", "Manager", "Employee"]
         },
     ]).then(data => {
         if(data.choice === "Engineer") {
             addEngineer()
         }else if(data.choice === "Intern") {
             addIntern()
+        }else if(data.choice === "Manager") {
+            addManager()
+        }else if(data.choice === "Employee") {
+            addEmployee()
         }else{
             buildHtml()
         }
@@ -81,7 +86,7 @@ function addEngineer() {
             message: "What is the engineer's github name?"
         },
     ]).then(data => {
-        const engineer = Engineer(data.engineerName, data.engineerId, data.engineerEmail, data.engineerGithub)
+        const engineer = new Engineer(data.engineerName, data.engineerId, data.engineerEmail, data.engineerGithub)
         team.push(engineer)
         console.log(team)
         // call the ask question function
@@ -112,7 +117,7 @@ function addIntern() {
             message: "What is the Interns school name?"
         },
     ]).then(data => {
-        const intern = Intern(data.internName, data.internId, data.internEmail, data.internSchoolName)
+        const intern = new Intern(data.internName, data.internId, data.internEmail, data.internSchoolName)
         team.push(intern)
         console.log(team)
         // call the ask question function
@@ -120,4 +125,28 @@ function addIntern() {
     })
 }
 
-
+function addEmployee() {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "employeeName",
+            message: "What is the Employees name?"
+        },
+        {
+            type: "input",
+            name: "employeeId",
+            message: "What is the Employees Id?"
+        },
+        {
+            type: "input",
+            name: "employeeEmail",
+            message: "What is the Employees Email?"
+        },
+    ]).then(data => {
+        const employee = new Employee(data.employeeName, data.employeeId, data.employeeEmail)
+        team.push(employee)
+        console.log(team)
+        // call the ask question function
+        askQuestion()
+    })
+}
