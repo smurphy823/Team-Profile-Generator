@@ -1,10 +1,11 @@
-const Manager = require("./lib/Manager")
-const Engineer = require("./lib/Engineer")
-const Intern = require("./lib/Intern")
-const fs = require("fs")
-const inquirer = require("inquirer")
-const path = require("path")
+const Manager = require("./lib/Manager");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
+const fs = require("fs");
+const inquirer = require("inquirer");
+const path = require("path");
 const team = []
+
 
 addManager()
 function addManager() {
@@ -76,11 +77,11 @@ function addEngineer() {
         },
         {
             type: "input",
-            name: "enginnerOfficeNum",
-            message: "What is the engineer's office number?"
+            name: "engineerGithub",
+            message: "What is the engineer's github name?"
         },
     ]).then(data => {
-        const engineer = Engineer(data.engineerName, data.engineerId, data.engineerEmail, data.engineerOfficeNum)
+        const engineer = Engineer(data.engineerName, data.engineerId, data.engineerEmail, data.engineerGithub)
         team.push(engineer)
         console.log(team)
         // call the ask question function
@@ -97,24 +98,26 @@ function addIntern() {
         },
         {
             type: "input",
-            name: "managerId",
+            name: "internId",
             message: "What is the Interns Id?"
         },
         {
             type: "input",
-            name: "managerEmail",
+            name: "internEmail",
             message: "What is the Interns Email?"
         },
         {
             type: "input",
-            name: "enginnerOfficeNum",
-            message: "What is the Interns office number?"
+            name: "internSchoolName",
+            message: "What is the Interns school name?"
         },
     ]).then(data => {
-        const intern = Intern(data.internName, data.internId, data.internEmail, data.internOfficeNum)
+        const intern = Intern(data.internName, data.internId, data.internEmail, data.internSchoolName)
         team.push(intern)
         console.log(team)
         // call the ask question function
         askQuestion()
     })
 }
+
+
