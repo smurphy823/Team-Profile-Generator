@@ -5,7 +5,10 @@ const fs = require("fs");
 const inquirer = require("inquirer");
 const path = require("path");
 const Employee = require("./lib/Employee");
-const team = []
+const team = [];
+const output = path.resolve(__dirname, "html");
+const outputPath = path.join(output, "index.html")
+const htmlRenderer = require("./lib/htmlRenderer")
 
 
 addManager()
@@ -46,7 +49,7 @@ function askQuestion() {
             type: "list",
             name: "choice",
             message: "Which type of employee would you like to add?",
-            choices: ["Engineer", "Intern", "Manager", "Employee"]
+            choices: ["Engineer", "Intern", "Manager", "Done"]
         },
     ]).then(data => {
         if(data.choice === "Engineer") {
@@ -55,8 +58,6 @@ function askQuestion() {
             addIntern()
         }else if(data.choice === "Manager") {
             addManager()
-        }else if(data.choice === "Employee") {
-            addEmployee()
         }else{
             buildHtml()
         }
@@ -125,28 +126,9 @@ function addIntern() {
     })
 }
 
-function addEmployee() {
-    inquirer.prompt([
-        {
-            type: "input",
-            name: "employeeName",
-            message: "What is the Employees name?"
-        },
-        {
-            type: "input",
-            name: "employeeId",
-            message: "What is the Employees Id?"
-        },
-        {
-            type: "input",
-            name: "employeeEmail",
-            message: "What is the Employees Email?"
-        },
-    ]).then(data => {
-        const employee = new Employee(data.employeeName, data.employeeId, data.employeeEmail)
-        team.push(employee)
-        console.log(team)
-        // call the ask question function
-        askQuestion()
-    })
+function buildHtml() {
+    if(!fs.existsSync(output)) {
+        fs.mkdirSync(output)
+    }
+    fs.writeFileSync(outputPath, htmlRenderer(team), "utf-8")
 }
