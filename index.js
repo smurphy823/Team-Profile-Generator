@@ -73,12 +73,12 @@ function addEngineer() {
         },
         {
             type: "input",
-            name: "managerId",
+            name: "engineerId",
             message: "What is the engineer's Id?"
         },
         {
             type: "input",
-            name: "managerEmail",
+            name: "engineerEmail",
             message: "What is the engineer's Email?"
         },
         {
@@ -125,6 +125,7 @@ function addIntern() {
         askQuestion()
     })
 }
+
 
 function buildHtml() {
     if(!fs.existsSync(output)) {
